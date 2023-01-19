@@ -65,4 +65,28 @@ const getCharacterByName = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllCharacters, getCharactersByPage, getCharacterByName };
+//GET list of character titles by name
+//@desc     Get character titles by name
+//@route    GET /api/character/titles/:name
+//@access   Public
+const getCharacterTitlesByName = async (req, res, next) => {
+  const name = req.params.name;
+  try {
+    const response = await axios.get(`${gotBaseURL}/characters/?name=${name}`);
+    const character = response.data;
+    if (!character.length) {
+      res.status(400).send({ message: "Character not found" });
+    }
+    const titles = character[0].titles;
+    res.status(200).json(titles);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {
+  getAllCharacters,
+  getCharactersByPage,
+  getCharacterByName,
+  getCharacterTitlesByName,
+};

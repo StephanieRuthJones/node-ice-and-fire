@@ -4,10 +4,9 @@ Today we will be building a server that will serve up data from the Ice and Fire
 
 ## Instructions
 
-To complete this challenge, you will need to:
+To conquer this challenge, complete the tasks listed below.
 
-- [ ] Fork and clone this repository
-- [ ] Install dependencies with `npm install`
+Run your server with `npm run server`. Use [Postman](https://www.getpostman.com/downloads/) to test your routes.
 
 ## Part I
 
@@ -18,6 +17,7 @@ To complete this challenge, you will need to:
 - [ ] Create an `app.js` file in the root of the project
 - [ ] Create folders for controllers and routes
 - [ ] Review the resources listed in the [Ice and Fire API documentation](https://anapioficeandfire.com/Documentation)
+- [ ] Download [Postman](https://www.getpostman.com/downloads/) to test your routes
 
 ### Create a server in `app.js`
 
@@ -25,7 +25,7 @@ To complete this challenge, you will need to:
 - [ ] Create an express app
 - [ ] Create a server with `app.listen()`
 - [ ] Create a GET route for `/` that sends a response of `Hello World!`
-- [ ] Test your server with `nodemon app.js` and visiting `localhost:3000`
+- [ ] Test your server with `npm run server` and visiting `localhost:3000`
 
 ### Create the following routes and controllers using the Ice and Fire API
 
