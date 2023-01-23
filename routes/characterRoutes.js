@@ -10,7 +10,7 @@ const {
   getCharacterTitlesByName,
   getCharacterBooksByName,
   getCharacterAllegiancesByName,
-  getAllOverlordCharacters,
+  getAllLordCharacters,
 } = require("../controllers/characterController");
 
 //GET all characters from the API of Ice And Fire
@@ -33,4 +33,4 @@ module.exports = router;
 router.get("/character/allegiances/:name", getCharacterAllegiancesByName);
 
 //GET all House Overlord characters
-router.get("/overlords", getAllOverlordCharacters);
+router.get("/lords", getAllLordCharacters);

@@ -134,21 +134,30 @@ const getCharacterAllegiancesByName = async (req, res, next) => {
     next(err);
   }
 };
+//Update variables names; make a more efficient way to solve this
 // - [ ] Create a route for `/characters/overlords` that returns a list of all the characters who are House Overlords
-const getAllOverlordCharacters = async (req, res, next) => {
+const getAllLordCharacters = async (req, res, next) => {
   try {
     const response = await axios.get(`${gotBaseURL}/houses`);
     const houses = response.data;
     const overlordHouses = houses.filter((house) => house.overlord);
 
-    const overlordHousesPromises = overlordHouses.map((house) =>
-      axios.get(house.url)
-    );
+    const overlordHousesPromises = overlordHouses.map((house) => {
+      return axios.get(house.url);
+    });
     const overlordHousesResponse = await Promise.all(overlordHousesPromises);
     const overlordHousesData = overlordHousesResponse.map(
       (house) => house.data
     );
-    console.log("overlordHousesData", overlordHousesData);
+    const lordLinks = overlordHousesData
+      .filter((house) => house.currentLord)
+      .map((house) => axios.get(house.currentLord));
+    const lordCharacter = await Promise.all(lordLinks);
+
+    const lordCharacterNames = lordCharacter.map(
+      (character) => character.data.name
+    );
+    console.log(lordCharacterNames);
   } catch (err) {
     next(err);
   }
@@ -161,5 +170,5 @@ module.exports = {
   getCharacterTitlesByName,
   getCharacterBooksByName,
   getCharacterAllegiancesByName,
-  getAllOverlordCharacters,
+  getAllLordCharacters,
 };
