@@ -19,7 +19,7 @@ Run your server with `npm run server`. Use [Postman](https://www.getpostman.com/
 
 ### Create a server in `app.js`
 
-- [ ] Require `express`
+- [ ] Require `express` (previously said "Import express")
 - [ ] Create an `express` app
 - [ ] Create a server with `app.listen()`
 - [ ] Create a GET route for `/` that sends a response of `Hello World!`
