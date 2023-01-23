@@ -54,6 +54,7 @@ const getCharactersByPage = async (req, res, next) => {
 const getCharacterByName = async (req, res, next) => {
   const name = req.params.name;
   try {
+    // throw new Error("test error");
     const response = await axios.get(`${gotBaseURL}/characters/?name=${name}`);
     const character = response.data;
     if (!character.length) {
@@ -65,7 +66,6 @@ const getCharacterByName = async (req, res, next) => {
   }
 };
 
-//GET list of character titles by name
 //@desc     Get character titles by name
 //@route    GET /api/character/titles/:name
 //@access   Public
@@ -84,9 +84,82 @@ const getCharacterTitlesByName = async (req, res, next) => {
   }
 };
 
+//@desc     Get book titles by character name
+//@route    GET /api/character/books/:name
+//@access   Public
+const getCharacterBooksByName = async (req, res, next) => {
+  const name = req.params.name;
+  try {
+    const response = await axios.get(`${gotBaseURL}/characters/?name=${name}`);
+    const character = response.data;
+    if (!character.length) {
+      res.status(400).send({ message: "Character not found" });
+    }
+    const books = character[0].books;
+    res.status(200).json(books);
+  } catch (err) {
+    next(err);
+  }
+};
+
+//@desc     Get allegiances by character name
+//@route    GET /api/character/allegiances/:name
+//@access   Public
+const getCharacterAllegiancesByName = async (req, res, next) => {
+  const name = req.params.name;
+  try {
+    const response = await axios.get(`${gotBaseURL}/characters/?name=${name}`);
+    const character = response.data;
+    if (!character.length) {
+      res.status(400).send({ message: "Character not found" });
+    }
+    const allegiances = character[0].allegiances;
+    console.log("allegiances", allegiances);
+    //make a fetch call for every element in the array
+    const allegiancesPromises = allegiances.map((allegiance) =>
+      axios.get(allegiance)
+    );
+    //wait for all the promises to resolve
+    const allegiancesResponse = await Promise.all(allegiancesPromises);
+    //get the data from the response
+    const allegiancesData = allegiancesResponse.map(
+      (allegiance) => allegiance.data
+    );
+    //get the name from the data
+    const allegiancesNames = allegiancesData.map(
+      (allegiance) => allegiance.name
+    );
+    res.status(200).json(allegiancesNames);
+  } catch (err) {
+    next(err);
+  }
+};
+// - [ ] Create a route for `/characters/overlords` that returns a list of all the characters who are House Overlords
+const getAllOverlordCharacters = async (req, res, next) => {
+  try {
+    const response = await axios.get(`${gotBaseURL}/houses`);
+    const houses = response.data;
+    const overlordHouses = houses.filter((house) => house.overlord);
+
+    const overlordHousesPromises = overlordHouses.map((house) =>
+      axios.get(house.url)
+    );
+    const overlordHousesResponse = await Promise.all(overlordHousesPromises);
+    const overlordHousesData = overlordHousesResponse.map(
+      (house) => house.data
+    );
+    console.log("overlordHousesData", overlordHousesData);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAllCharacters,
   getCharactersByPage,
   getCharacterByName,
   getCharacterTitlesByName,
+  getCharacterBooksByName,
+  getCharacterAllegiancesByName,
+  getAllOverlordCharacters,
 };
