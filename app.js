@@ -11,4 +11,7 @@ const characterRoutes = require("./routes/characterRoutes");
 //localhost:3000/api...
 app.use("/api", characterRoutes);
 
+//implement errorMiddleware
+
+//listen on port 3000
 app.listen(port, () => console.log(`Listening on port ${port}`));
