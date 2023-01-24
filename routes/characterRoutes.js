@@ -9,7 +9,7 @@ const {
   getCharacterByName,
   getCharacterTitlesByName,
   getCharacterBooksByName,
-  getCharacterAllegiancesByName,
+  getAllegiancesByCharacterName,
   getAllLordCharacters,
 } = require("../controllers/characterController");
 
@@ -30,7 +30,7 @@ router.get("/character/books/:name", getCharacterBooksByName);
 module.exports = router;
 
 //GET allegiances by character name
-router.get("/character/allegiances/:name", getCharacterAllegiancesByName);
+router.get("/character/allegiances/:name", getAllegiancesByCharacterName);
 
 //GET all House Overlord characters
 router.get("/lords", getAllLordCharacters);
