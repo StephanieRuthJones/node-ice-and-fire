@@ -11,7 +11,6 @@ const getCharacters = async (req, res) => {
     const response = await axios.get(
       `${gotBaseURL}/characters?page=1&pageSize=20`
     );
-    //returns 20 characters
     const characters = response.data;
     res.status(200).json(characters);
   } catch (err) {
