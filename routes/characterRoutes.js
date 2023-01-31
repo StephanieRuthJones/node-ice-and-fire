@@ -16,8 +16,8 @@ const {
 //GET all characters from the API of Ice And Fire
 router.get("/characters", getAllCharacters);
 
-//GET all characters by page
-router.get("/characters/:page", getCharactersByPage);
+//GET all characters by page - param needs to be set as optiona ? in order to write default value logic in controller
+router.get("/characters/:page?", getCharactersByPage);
 
 //GET character by name
 router.get("/character/name/:name", getCharacterByName);
