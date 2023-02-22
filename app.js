@@ -22,3 +22,10 @@ app.use("/api", characterRoutes);
 
 //register routes - set up base url for all character routes
 //localhost:3000/api...
+
+app.use("/api", characterRoutes);
+
+//implement errorMiddleware
+
+//listen on port 3000
+app.listen(port, () => console.log(`Listening on port ${port}`));
